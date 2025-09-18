@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT-like Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            position: relative;
+        }
+
+        .chat-history {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .chat-message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .chat-message.user {
+            justify-content: flex-end;
+            text-align: right;
+        }
+        
+        .chat-message.user .message-bubble {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 18px 18px 0 18px;
+        }
+        
+        .chat-message.ai .message-bubble {
+            background-color: #e5e5e5;
+            color: #333;
+            border-radius: 18px 18px 18px 0;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px 15px;
+            line-height: 1.4;
+        }
+
+        .chat-input-area {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f0f2f5;
+        }
+
+        .chat-input-area input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .chat-input-area button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .chat-input-area button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <div class="chat-history" id="chat-history">
+            <div class="chat-message ai">
+                <div class="message-bubble">Hello! I am an AI assistant. How can I help you today?</div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Send a message...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const chatHistory = document.getElementById('chat-history');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') {
+                return;
+            }
+
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.classList.add('chat-message', 'user');
+            userMessageDiv.innerHTML = `<div class="message-bubble">${message}</div>`;
+            chatHistory.appendChild(userMessageDiv);
+
+            userInput.value = '';
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+
+        userInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+
+</body>
+</html>

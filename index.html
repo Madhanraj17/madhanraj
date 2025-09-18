@@ -205,39 +205,6 @@
         </div>
     </div>
 
-    <script>
-        const chatHistory = document.getElementById('chat-history');
-        const userInput = document.getElementById('user-input');
-        const sendButton = document.getElementById('send-button');
-
-        function sendMessage() {
-            const message = userInput.value.trim();
-            if (message === '') {
-                return;
-            }
-
-            // Add user message to the chat history
-            const userMessageDiv = document.createElement('div');
-            userMessageDiv.classList.add('chat-message', 'user');
-            userMessageDiv.innerHTML = `<div class="message-bubble">${message}</div>`;
-            chatHistory.appendChild(userMessageDiv);
-
-            // Clear the input field
-            userInput.value = '';
-
-            // Scroll to the bottom of the chat history
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }
-
-        // Add event listeners for the button click and 'Enter' key press
-        sendButton.addEventListener('click', sendMessage);
-
-        userInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        });
-    </script>
 
 </body>
 </html>
